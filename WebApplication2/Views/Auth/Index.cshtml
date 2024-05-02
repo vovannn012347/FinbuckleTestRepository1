@@ -1,0 +1,47 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Auth Page";
+}
+
+@if (Model.TenantInfo == null || string.IsNullOrEmpty(Model.TenantInfo.Id))
+{
+
+    <div class="text-center">
+        <h1 class="display-4">Please select Tenant</h1>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Tenant @Model.TenantInfo.Identifier</h1>
+    </div>
+
+    <div>
+        <form asp-action="Login" method="post">
+
+            <input type="hidden" id="TenantId" name="TenantId" value="@Model.TenantId" />
+            <div>
+                <label for="Login">Username:</label>
+                <input type="text" id="Login" name="Login" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+
+    </div>
+    <div>
+        <p>tenant-1 user:</p>
+        <p>Login: TestUser</p>
+        <p>Password: userPassword</p>
+        <p>tenant-2 user:</p>
+        <p>Login: TestUser2</p>
+        <p>Password: userPassword2</p>
+    </div>
+}
+
+

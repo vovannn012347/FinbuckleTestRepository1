@@ -1,0 +1,57 @@
+﻿@using WebApplication2
+@using WebApplication2.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if (Model.TenantInfo is null || string.IsNullOrEmpty(Model.TenantInfo.Id))
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Usage how-to:</p>
+        <ol>
+            <li>privacy page requires login, visit without logged in user to aknowlege</li>
+            <li>select tenant from dropdown above</li>
+            <li>register and login with identity stuffs in right corner</li>
+            <li>privacy page requires login, visit with current user to acknowlege</li>
+            <li>select another tenant</li>
+            <li>privacy page requires login, visit to acknowlege user not authenticated with another tenant</li>
+            <li>register and login with that tenant</li>
+            <li>switch between tenants to acknowlege sign in identities being separated between tenants</li>
+            <li>visit privacy page with both tenants to acknowlege both tenants have authenticated user</li>
+        </ol>
+        <p>Warning: default connection string is commented out, registering and logging in without tenant leads to error</p>
+    </div>
+}
+else
+{
+    <h2>@Model.TenantInfo.Name</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="w-25">Property</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>@nameof(Model.TenantInfo.Id)</td>
+                <td>@Model.TenantInfo.Id</td>
+            </tr>
+            <tr>
+                <td>@nameof(Model.TenantInfo.Identifier)</td>
+                <td>@Model.TenantInfo.Identifier</td>
+            </tr>
+            <tr>
+                <td>@nameof(Model.TenantInfo.Name)</td>
+                <td>@Model.TenantInfo.Name</td>
+            </tr>
+            <tr>
+                <td>@nameof(Model.TenantInfo.ConnectionString)</td>
+                <td>@Model.TenantInfo.ConnectionString</td>
+            </tr>
+        </tbody>
+
+    </table>
+}
