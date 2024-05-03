@@ -3,14 +3,14 @@ using Finbuckle.MultiTenant.Abstractions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace WebApplication2;
+namespace WebApplication2.Code.JwtTokenBicyce;
 
 public class CustomTenantControlMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly IMultiTenantContextAccessor<AppTenantInfo> _tenantContextAccessor;
-    
-    public CustomTenantControlMiddleware(RequestDelegate next, 
+
+    public CustomTenantControlMiddleware(RequestDelegate next,
         IMultiTenantContextAccessor<AppTenantInfo> tenantContextAccessor)
     {
         _next = next;
@@ -19,10 +19,10 @@ public class CustomTenantControlMiddleware
 
     public async Task Invoke(HttpContext context)
     {
-        var principal = context.User;
+        if (_tenantContextAccessor.MultiTenantContext.IsResolved)
+        {
+            context.Request.Headers["tenant"] = _tenantContextAccessor.MultiTenantContext.TenantInfo.Identifier;
 
-        //if (principal?.Identity?.IsAuthenticated == true)
-        //{
             //var currentTenant = _tenantContextAccessor.MultiTenantContext.TenantInfo;
             //var claim = principal.Claims.FirstOrDefault(c => c.Type == Constants.TenantClaimType);
 
@@ -30,7 +30,11 @@ public class CustomTenantControlMiddleware
             //{
             //    await context.SignOutAsync();
             //}
-        //}
+        }
+        else
+        {
+            context.Request.Headers.Remove("tenant");
+        }
 
         await _next(context);
     }

@@ -29,11 +29,11 @@ namespace WebApplication2.Data
 
         public ApplicationDbContext(IMultiTenantContextAccessor multiTenantContextAccessor) : base(multiTenantContextAccessor)
         {
-            //_tenantInfo = multiTenantContextAccessor.MultiTenantContext.TenantInfo as AppTenantInfo;
-            //if (multiTenantContextAccessor.MultiTenantContext?.TenantInfo != null)
-            //{
-            //    _tenantInfo = multiTenantContextAccessor.MultiTenantContext.TenantInfo as AppTenantInfo;
-            //}
+            _tenantInfo = multiTenantContextAccessor.MultiTenantContext.TenantInfo as AppTenantInfo;
+            if (multiTenantContextAccessor.MultiTenantContext?.TenantInfo != null)
+            {
+                _tenantInfo = multiTenantContextAccessor.MultiTenantContext.TenantInfo as AppTenantInfo;
+            }
             //else
             //{
             //    _tenantInfo = new AppTenantInfo
@@ -46,10 +46,10 @@ namespace WebApplication2.Data
         public ApplicationDbContext(IMultiTenantContextAccessor multiTenantContextAccessor, DbContextOptions<ApplicationDbContext> options) :
             base(multiTenantContextAccessor, options)
         {
-            //if (multiTenantContextAccessor.MultiTenantContext?.TenantInfo != null)
-            //{
-            //    _tenantInfo = multiTenantContextAccessor.MultiTenantContext.TenantInfo as AppTenantInfo;
-            //}
+            if (multiTenantContextAccessor.MultiTenantContext?.TenantInfo != null)
+            {
+                _tenantInfo = multiTenantContextAccessor.MultiTenantContext.TenantInfo as AppTenantInfo;
+            }
             //else
             //{
             //    _tenantInfo = new AppTenantInfo

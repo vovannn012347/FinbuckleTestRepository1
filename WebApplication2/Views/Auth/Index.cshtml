@@ -1,6 +1,15 @@
-﻿@model LoginViewModel
+﻿@model IndexModel
 @{
     ViewData["Title"] = "Auth Page";
+
+    var username = "TestUser";
+    var password = "userPassword";
+
+    if (!(Model.TenantInfo == null || string.IsNullOrEmpty(Model.TenantInfo.Id)))
+    {
+        username = "TestUser" + Model.TenantInfo.Identifier;
+        password = "userPassword" + Model.TenantInfo.Identifier;
+    }
 }
 
 @if (Model.TenantInfo == null || string.IsNullOrEmpty(Model.TenantInfo.Id))
@@ -16,6 +25,29 @@ else
         <h1 class="display-4">Tenant @Model.TenantInfo.Identifier</h1>
     </div>
 
+    <a asp-area="" asp-controller="Auth" asp-action="UserClaims">UserClaims</a>
+
+    <a asp-area="" asp-controller="Auth" asp-action="CookieSignin">CookieSignin</a>
+    <a asp-area="" asp-controller="Auth" asp-action="TokenSignin">TokenSignin</a>
+    <a asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+    
+    <a asp-area="" asp-controller="Auth" asp-action="AnySecret">AnySecret</a>
+    <a asp-area="" asp-controller="Auth" asp-action="CookieSecret">CookieSecret</a>
+    <a asp-area="" asp-controller="Auth" asp-action="TokenSecret">TokenSecret</a>
+
+    
+    
+
+    <div>
+        <p>Username:</p>
+        <p>@username</p>
+    </div>
+    <div>
+        <p>password:</p>
+        <p>@password</p>
+    </div>
+
+@* 
     <div>
         <form asp-action="Login" method="post">
 
@@ -41,7 +73,7 @@ else
         <p>tenant-2 user:</p>
         <p>Login: TestUser2</p>
         <p>Password: userPassword2</p>
-    </div>
+    </div> *@
 }
 
 
